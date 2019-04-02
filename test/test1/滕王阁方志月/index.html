@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css_control.css" type="text/css">
+<style type="text/css">
+</style>
+<script src="test.js">
+</script>
+</head>
+<body onload="index()">
+<div class="title">
+<div class="company" onmouseover="getTitle()" onmouseout="getTitle_alert()" id="company"><span style="line-height: 60px; font-size: 25px;">安徽方得旅游信息公司</span></div> 
+<div class="tel"><span  style="line-height: 60px; font-size:18px;font-familay:宋体;">tel:1234567890</span></div>
+</div>
+<!-- 处理基本界面    首页   景点简介 公交查询 附近酒店 关于我们 -->
+<div class="main_menu">
+
+<div class="menu" id="menu" onmouseover="index1()" onmouseout="index1_alter()"><a href="index.html">|&nbsp;&nbsp;&nbsp;主页&nbsp;&nbsp;&nbsp;|</a></div>
+<div class="menu" id="list_one" onmouseover="drop_list_one(this.id,1)" onmouseout="drop_list_one(this.id,0)">
+<span>|&nbsp;&nbsp;&nbsp;景点简介&nbsp;&nbsp;&nbsp;|</span>
+
+<!-- 历史信息 -->
+<!-- 重要事件 -->
+<div class="drop_list">
+<a href="history.html">历史信息</a><br/>
+<a href="history.html">重要事件</a>
+</div>
+</div>
+<div class="menu" id="list_two" onmouseover="drop_list_one(this.id,1)" onmouseout="drop_list_one(this.id,0)">
+<span>|&nbsp;&nbsp;&nbsp;公交查询&nbsp;&nbsp;&nbsp;|</span>
+<div class="drop_list">
+<a href="car_road_query.html">公交线路查看</a><br/>
+<a href="car_road_query.html">公交时间查看</a>
+</div>
+
+</div>
+<div class="menu" id="list_three" onmouseover="drop_list_one(this.id,1)" onmouseout="drop_list_one(this.id,0)">
+<span>|&nbsp;&nbsp;&nbsp;附近酒店&nbsp;&nbsp;&nbsp;|</span>
+<div class="drop_list">
+<a>休闲度假</a><br/>
+<a>商务办公</a>
+</div>
+
+</div>
+<div class="menu" id="list_four" onmouseover="drop_list_one(this.id,1)" onmouseout="drop_list_one(this.id,0)">
+<span>|&nbsp;&nbsp;&nbsp;关于我们&nbsp;&nbsp;&nbsp;|</span>
+<div class="drop_list">
+<a>加入我们</a><br/>
+<a>寻求帮助</a>
+</div>
+</div>
+</div>
+<div class="cneter_photo" id="change_box">
+<div style="display: none"><img alt="滕王阁" src="image/imge01.jpg" class="cneter_photo"/></div>
+<div style="display: none"><img alt="滕王阁" src="image/imge02.jpg" class="cneter_photo"/></div>
+<div style="display: none"><img alt="滕王阁" src="image/imge03.jpg" class="cneter_photo"/></div>
+<div style="display: none"><img alt="滕王阁" src="image/imge04.jpg" class="cneter_photo"/></div>
+</div>
+
+<!-- 处理中间一个大的灰色背景 -->
+<div class="center_background">
+
+<!-- 下面一个div是用来显示下面tab的标题的 -->
+<div class="center_title_range">
+<div><img alt="logo" src="image/ted.jpg" style="height:60px; margin-left:200px; float:left;"></div>
+<div><img alt="logo" src="image/logo_21.png" style="height:60px; float:left; margin-left:320px;" /></div>
+</div>
+
+<!--处理中间的tab栏切换 -->
+<div class="tab" style="margin-left:200px; float:left;">
+	  <div id="top_display_list">
+	    <div class="small" onclick="change_tab(this.id)" id="click1">风景</div>
+	     <div class="small" onclick="change_tab(this.id)" id="click2">经济</div>
+		  <div class="small" onclick="change_tab(this.id)" id="click3">旅游</div>
+		  <div class="small" onclick="change_tab(this.id)" id="click4">红色</div>
+	  </div>
+	  <div id="div_display">
+	  	  <div class="block" style="display:block;" id="div1">
+滕王阁风景名胜区荣获由中央文明委授予的第三批“全国文明单位”称号 。<br/>
+&nbsp; &nbsp;2001年被评为首批国家AAAA级旅游景区。<br/>
+&nbsp; &nbsp;2004年被评为国家重点风景名胜区。<br/>
+&nbsp; &nbsp;2016年被国务院评为国家5A级历史风景名胜区备（侯）选名单，<br/>&nbsp; &nbsp;成为了南昌第一
+个进入5A级备选名单的景点</div>
+	      <div class="block" id="div2">
+&nbsp; &nbsp; 历朝历代文人雅士们以滕王阁为歌咏主题的诗作数不胜数，其中<br/>
+&nbsp; &nbsp; 不乏张九龄、白居易、杜牧、苏轼、王安石、朱熹、黄庭坚、辛弃疾、<br/>
+&nbsp; &nbsp;  李清照、文天祥、汤显祖这样文化大家们留下的美文<br/>
+&nbsp; &nbsp;王勃	《滕王阁序》<br/>
+&nbsp; &nbsp;张九龄	《登城楼望西山作》
+	      </div>
+		    <div class="block" id="div3">
+&nbsp; &nbsp; 主阁：主阁的梁枋彩画采用宋式彩画中的“碾玉装”为主调，辅以<br/>
+&nbsp; &nbsp;“五彩遍装”及“解绿结华装”。室内外所有梁枋各明间用“碾玉装”，<br/>
+&nbsp; &nbsp;各次间用“五彩遍装”。大厅：走进大厅，扑入眼帘的是一幅汉白玉浮雕<br/>
+&nbsp; &nbsp;——《时来风送滕王阁》。这是根据明朝冯梦龙所著《醒世恒言》中的名篇<br/>
+&nbsp; &nbsp;《马当神风送滕王阁》的故事而创作的。
+		    </div>
+		    <div class="block" id="div4">
+ &nbsp; &nbsp; 滕王阁在古代被人们看作是吉祥风水建筑，古谣云：“藤断葫芦<br/>
+ &nbsp; &nbsp;剪，塔圮豫章残”。“藤”谐“滕”音，指滕王阁；“葫芦”，乃藏宝<br/>
+ &nbsp; &nbsp;之物；“塔”，指绳金塔；“圮”，倒塌之意；“豫章”亦即南昌。<br/>
+ &nbsp; &nbsp;这首古谣的意思是，如果滕王阁和绳金塔倒塌，豫章城中的<br/>
+ &nbsp; &nbsp;人才与宝藏都将流失，城市亦将败落，不复繁荣昌盛。		    
+		    </div>
+	  </div>
+</div>
+
+<!-- 处理右边的标题栏 -->
+<div class="right_top">
+<img alt="滕王阁" src="image/imge06.jpg" style="width:300px; height:100px;border-top:1px solid #111;border-left:1px solid #111;border-right:1px solid #111">
+<ul class="right_top_tab">
+<li><p>历史发展-始建于唐永徽四年(公元653年)</p></li>
+<li><p>相关作品-王勃	《滕王阁序》</p></li>
+<li><p>名称来历-李元婴在贞观年间曾..</p></li>
+<li><p>荣誉评价-2001年被评为首批国家..</p></li>
+</ul>
+</div>
+</div>
+<div style="width:1360px; height:40px; background:#fff;"></div>
+<div class="bottom" style="font-size:13px; font-family:'宋体';">
+<p>Copyright © 1998 - 201720172017 FangD. All Rights Reserved.</p>
+<p>方得公司 版权所有 方得旅游文化经营许可证</p>
+</div>
+
+</body>
+</html>

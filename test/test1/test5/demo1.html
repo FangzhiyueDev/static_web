@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul {
+            list-style: none;
+        }
+
+        .one {
+            /*display: inline-block;*/
+            /*width: 45%;*/
+            /*height: 200px;*/
+            /*background-color: #00CC33;*/
+            /*margin: 10px;*/
+        }
+
+    </style>
+    <script>
+        var time = "201811121234";
+
+
+        var date = time.substring(0, 4) + "年"
+            + time.substring(4, 6) + "月"
+            + time.substring(6, 8) + "日 "
+            + time.substring(8, 10) + ":"
+            + time.substring(10, 12);
+
+        // alert(date)
+
+
+    </script>
+
+</head>
+<body>
+
+<div class="sgsg">
+    <img src="#"/>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <span></span>
+</div>
+
+
+<!--<div style="height: 800px;width: 500px;background-color: #00CC33;">-->
+<!--<div class="one" style="height: 200px;background-color: #89344f;position: relative;"></div>-->
+<!--<div class="one" style="height: 600px;background-color: #89344f;position: relative;"></div>-->
+<!--</div>-->
+
+<div style="height: 300px;">
+    <div class="one"></div>
+    <div class="one"></div>
+</div>
+
+<script>
+
+    var progressClassJson;
+
+    var jsonData = [{
+        "videoName": "HTML基础02_标准结构",
+        "videoAddress": "http://localhost:8080/Blog/video/HTML基础02_标准结构.mp4",
+        "videoSize": "221MB",
+        "uploadTime": "201811131735",
+        "videoNote": "HTML基础02_标准结构",
+        "videoDestribute": "HTML基础02_标准结构",
+        "authorid": 111111,
+        "classfy": "html基础教程设计",
+        "classOrder": "1"
+    }, {
+        "videoName": "HTML基础08_表格(下)",
+        "videoAddress": "http://localhost:8080/Blog/video/HTML基础08_表格(下).mp4",
+        "videoSize": "130M",
+        "uploadTime": "201811131738",
+        "videoNote": "HTML基础08_表格(下)",
+        "videoDestribute": "HTML基础08_表格(下)",
+        "authorid": 111111,
+        "classfy": "html基础教程设计",
+        "classOrder": "2"
+    }, {
+        "videoName": "HTML基础09_表单的设计及运用(上)",
+        "videoAddress": "http://localhost:8080/Blog/video/HTML基础09_表单的设计及运用(上).mp4",
+        "videoSize": "269M",
+        "uploadTime": "201811131739",
+        "videoNote": "HTML基础09_表单的设计及运用(上)",
+        "videoDestribute": "HTML基础09_表单的设计及运用(上)",
+        "authorid": 111111,
+        "classfy": "html基础教程设计",
+        "classOrder": "3"
+    }, {
+        "videoName": "HTML基础12_CSS基础入门",
+        "videoAddress": "http://localhost:8080/Blog/video/HTML基础12_CSS基础入门.mp4",
+        "videoSize": "119M",
+        "uploadTime": "201811131740",
+        "videoNote": "HTML基础12_CSS基础入门",
+        "videoDestribute": "HTML基础12_CSS基础入门",
+        "authorid": 111111,
+        "classfy": "html基础教程设计",
+        "classOrder": "4"
+    }, {
+        "videoName": "HTML基础14_CSS中的选择器(下)",
+        "videoAddress": "http://localhost:8080/Blog/video/HTML基础14_CSS中的选择器(下).mp4",
+        "videoSize": "234M",
+        "uploadTime": "201811131741",
+        "videoNote": "HTML基础14_CSS中的选择器(下)",
+        "videoDestribute": "HTML基础14_CSS中的选择器(下)",
+        "authorid": 111111,
+        "classfy": "html基础教程设计",
+        "classOrder": "5"
+    }, {
+        "videoName": "HTML基础19_浮动",
+        "videoAddress": "http://localhost:8080/Blog/video/HTML基础19_浮动.mp4",
+        "videoSize": "217M",
+        "uploadTime": "201811131742",
+        "videoNote": "HTML基础19_浮动",
+        "videoDestribute": "HTML基础19_浮动",
+        "authorid": 111111,
+        "classfy": "html基础教程设计",
+        "classOrder": "6"
+    }, {
+        "videoName": "HTML基础21_DIV+CSS布局实例项目二",
+        "videoAddress": "http://localhost:8080/Blog/video/HTML基础21_DIV+CSS布局实例项目二.mp4",
+        "videoSize": "145M",
+        "uploadTime": "201811131743",
+        "videoNote": "HTML基础21_DIV+CSS布局实例项目二",
+        "videoDestribute": "HTML基础21_DIV+CSS布局实例项目二",
+        "authorid": 111111,
+        "classfy": "javaScript基础教程设计",
+        "classOrder": "7"
+    }];
+
+    function progressVideoClassfy(jsonData) {
+        var array = new Array();
+        array[0] = jsonData[0].classfy;
+        for (var i = 0; i < jsonData.length; i++) {
+            for (var j = 0; j < array.length; j++) {
+                if (jsonData[i].classfy != array[j]) {
+                    array[array.length] = jsonData[i].classfy;
+                }
+            }
+        }
+        var classArray = new Array();
+
+        for (var j = 0; j < array.length; j++) {
+            var videoArray = new Array();
+            for (var i = 0; i < jsonData.length; i++) {
+                if (jsonData[i].classfy == array[j]) {
+                    videoArray[videoArray.length] = jsonData[i];
+                }
+            }
+
+            var classObj = {
+                "classfy": array[j],
+                "videoArray": videoArray
+            };
+            classArray[j] = classObj;
+        }
+
+        for (var i = 0; i < classArray.length; i++) {
+            var videoClassfy = classArray[i].classfy;
+
+            for (var j = 0; j < classArray[i].videoArray.length; j++) {
+                var authorid = classArray[i].videoArray[j].authorid;
+                var classOrder = classArray[i].videoArray[j].classOrder;
+                var uploadTime = classArray[i].videoArray[j].uploadTime;
+                var videoAddress = classArray[i].videoArray[j].videoAddress;
+                var videoDestribute = classArray[i].videoArray[j].videoDestribute;
+                var videoName = classArray[i].videoArray[j].videoName;
+                var videoNote = classArray[i].videoArray[j].videoNote;
+            }
+        }
+    }
+
+
+    function demo2() {
+        var data = "data-authorid=\"111111\" data-uploadTime=\"201811131735\" data-videoAddress=\"http://localhost:8080/Blog/video/HTML基础02_标准结构.mp4\" data-videoDestribute=\"HTML基础02_标准结构\" data-videoName=\"HTML基础02_标准结构\" data-videoNote=\"HTML基础02_标准结构\""
+        var stringSpan=data.split(" ");
+        for(var i=0;i<stringSpan.length;i++){
+            alert(stringSpan[i])
+            alert(stringSpan[i].split("="))
+        }
+    }
+
+    demo2()
+
+</script>
+</body>
+</html>

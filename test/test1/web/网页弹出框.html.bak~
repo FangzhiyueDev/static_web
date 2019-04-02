@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<style>
+		*{
+			padding:0;
+			margin:0;
+		}
+		.one{
+			width:400px;
+			height:400px;
+			margin:50px 50px 50px 50px;
+			padding:50px 50px 50px 50px; 
+			border:10px solid #adcf5b;
+		}
+		.two{
+			width:400px;
+			height:100px;
+		   padding-left:50px;
+		}
+			.three{
+				display:inline-block;
+				text-align:left;
+			}
+			.four{
+				float:right;
+				font-size=15;
+			}
+			.five{
+			width:600px;
+			height:600px;
+			}
+			.six{
+				width:600px;
+			}
+		</style>
+	</head>
+	<body>
+  <div class="one">
+  	<div class="two">
+  		<h2 class="three">实践等于实赚，等你来赚钱</h2>
+  		<span class="four">	
+  			X
+  		</span>
+  	</div>
+  	<div class="five">
+  		<img class="six" src="G:\计算机学习常用文件\PS技术常用素材\ps文件\back1.png"/>
+  	</div>
+  </div>		
+		
+	</body>
+</html>

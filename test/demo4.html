@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        function demo1(){
+          var param={"d":"d7ce8e9a688a392f7bd6ee8500081501","i":"199280114",
+            "rid":633980,"u":"/633980","ru":"/","ac":"click_msg_send",
+            "rpc":"page_mem","pc":"page_studio_normal","pt":1523968625314,
+            "oct":1523968729158,"dur":0,"pro":"host_site","ct":"web",
+            "e":{"type":2,"rac":"show_quiz_msg"},"av":"","up":""};
+          var jsonObject=JSON.stringify(param);
+         alert(jsonObject);
+         return param;
+        }
+
+        function demo2(){
+          var ele=document.getElementById("submit");
+          ele.onclick=function (ev){
+            e.preventDefault;
+            document.getElementById("one").value=demo1();
+          }
+        }
+
+    </script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+[{"d":"d7ce8e9a688a392f7bd6ee8500081501","i":"199280114",
+"rid":633980,"u":"/633980","ru":"/","ac":"click_msg_send",
+"rpc":"page_mem","pc":"page_studio_normal","pt":1523968625314,
+"oct":1523968729158,"dur":0,"pro":"host_site","ct":"web",
+"e":{"type":2,"rac":"show_quiz_msg"},"av":"","up":""}]
+
+-->
+<form action="https://dotcounter.douyucdn.cn/deliver/fish2" method="post">
+<input id="one" type="text" name="multi" value=""/>
+<input type="submit" name="v" id="submit" value="1.5">
+</form>
+
+<script>
+  demo1();
+  demo2();
+
+</script>
+</body>
+</html>

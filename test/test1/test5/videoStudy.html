@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>访问视频数据的界面</title>
+    <style>
+        * {
+            border: 0px;
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+
+        }
+
+        div.box {
+            width: 220px;
+            display: inline-block;
+            height: 260px;
+            margin-left: 10px;
+        }
+
+        .box ul.list {
+            width: 100%;
+            height: 100%;
+        }
+
+        .box ul li.one {
+            width: 100%;
+        }
+
+        .box li.text {
+            height: 25px;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .box li.pro {
+            height: 50px;
+            width: 100%;
+            overflow: hidden;
+            font-size: 15px;
+            color: #a8a8a8;
+            text-overflow: ellipsis;
+        }
+
+        #videoContainer{
+            text-align: center;
+        }
+
+        #videoContainer .list .one img.img_video{
+            width: 100%;
+        }
+
+
+
+    </style>
+
+    <script>
+        window.onload = function (ev) {
+            var xhr;
+            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xhr = new XMLHttpRequest();
+            }
+            else {// code for IE6, IE5
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            xhr.open("GET", "http://localhost:8080/Blog/VideoServlet?current=5", true);
+            xhr.send();
+
+            xhr.onreadystatechange = function (ev) {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        //代表的响应数据成功
+                        var response = xhr.responseText;
+                        parseJsonData(response);
+                    }
+                }
+            }
+
+            /**
+             * 解析json数据
+             * @param jsonResponse
+             * 返回的数据如下
+             [{"imgAddress":"/../../../home/fang/Pictures/one.jpeg","linkAddress":"#"},{"imgAddress":"/../../../home/fang/Pictures/two.jpeg","linkAddress":"#"},{"imgAddress":"/../../../home/fang/Pictures/three.jpeg","linkAddress":"#"},{"imgAddress":"/../../../home/fang/Pictures/four.jpeg","linkAddress":"#"},{"imgAddress":"/../../../home/fang/Pictures/five.jpeg","linkAddress":"#"}]
+             */
+            function parseJsonData(jsonResponse) {
+
+                var jsonObject = JSON.parse(jsonResponse);
+                executeUpdateImage(jsonObject);
+            }
+
+            function executeUpdateImage(jsonObject) {
+
+                var linkBox = document.getElementById("videoContainer");
+                var boxs = linkBox.getElementsByClassName("link");
+
+                for (var i = 0; i < jsonObject.length; i++) {
+
+                    var videoName = jsonObject[i].videoName;
+                    var videoAddress = jsonObject[i].videoAddress;
+                    var videoDestribute = jsonObject[i].videoDestribute;
+
+                    boxs[i].href = videoAddress;
+                    var videoNameObj = boxs[i].getElementsByClassName("text")[0];
+                    videoNameObj.innerText=videoName;
+                    var videoDestributeObj = boxs[i].getElementsByClassName("pro_des")[0];
+                    videoDestributeObj.innerText=videoDestribute;
+                }
+            }
+        }
+
+
+    </script>
+
+</head>
+<body>
+
+<div  id="videoContainer">
+    <a class="link">
+        <div class="box">
+            <ul class="list">
+                <li class="one"><img src="images/jc.jpg" class="img_video"/></li>
+                <li class="text"></li>
+                <li class="pro">
+                    <p class="pro_des"></p>
+                </li>
+            </ul>
+        </div>
+    </a>
+
+    <a class="link">
+        <div class="box">
+            <ul class="list">
+                <li class="one"><img src="images/jc.jpg" class="img_video"/></li>
+                <li class="text"></li>
+                <li class="pro">
+                    <p class="pro_des"></p>
+                </li>
+            </ul>
+        </div>
+    </a>
+
+    <a class="link">
+        <div class="box">
+            <ul class="list">
+                <li class="one"><img src="images/jc.jpg" class="img_video" /></li>
+                <li class="text"></li>
+                <li class="pro">
+                    <p class="pro_des"></p>
+                </li>
+            </ul>
+        </div>
+    </a>
+
+    <a class="link">
+        <div class="box">
+            <ul class="list">
+                <li class="one"><img src="images/jc.jpg" class="img_video"/></li>
+                <li class="text"></li>
+                <li class="pro">
+                    <p class="pro_des"></p>
+                </li>
+            </ul>
+        </div>
+    </a>
+
+    <a class="link">
+        <div class="box">
+            <ul class="list">
+                <li class="one"><img src="images/jc.jpg" class="img_video"/></li>
+                <li class="text"></li>
+                <li class="pro">
+                    <p class="pro_des"></p>
+                </li>
+            </ul>
+        </div>
+    </a>
+</div>
+
+
+</body>
+</html>

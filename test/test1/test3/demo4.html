@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+
+        $("#login").click(function () {
+            //username is empty
+            var username = $("#username").val();
+            if (username == "") {
+                $("#username").focus();
+                return;
+            }
+            //password is empty
+            var password = $("#password").val();
+            if (password == "") {
+                $("#password").focus();
+                return;
+            }
+            var acid = $("#ac_id").val(),
+                ip = $("#user_ip").val();
+            var params = {
+                username: $.trim(username).toLowerCase(),
+                domain: "",
+                password: password,
+                ac_id: acid,
+                ip: ip,
+                double_stack: 0
+            };
+            if ($("#domain").val() != undefined) {
+                params.domain = $("#domain").val();
+            }
+            var ua = window.navigator.userAgent;
+            var md = new MobileDetect(ua);
+            var mobile = md.mobile();
+            if ((!mobile && portal.DoubleStackPC) || (mobile && portal.DoubleStackMobile)) {
+                params.double_stack = 1;
+            }
+            //这个data就是回调函数的实现
+            /**
+             *    data  {
+                        error: "fail",
+                        message: message
+                    }
+             *
+             */
+            $.Login(host, params, function (data) {
+                if (data.error == "ok") {
+                    /*if( (!mobile && portal.DoubleStackPC) || (mobile && portal.DoubleStackMobile)) {
+                     var doubleHost = location.protocol + "//";
+                     if (isIPV6) {
+                         doubleHost += portal.AuthIP||location.hostname;
+                     } else {
+                         if (portal.AuthIP6 != "") {
+                             portal.AuthIP6 = "["+portal.AuthIP6+"]";
+                         }
+                         doubleHost += portal.AuthIP6||location.hostname;
+                     }
+                     params.double_stack = 0;
+                     params.ip = "";
+                     $.Login(doubleHost, params, function(data) {
+                         //Redirect Success Page
+                         location.href = "./srun_portal_success"+location.search + "&srun_domain=" + params.domain;
+                     });
+                 } else {*/
+                    //下面就是登录成功的回调
+                    location.href = "./srun_portal_success" + location.search + "&srun_domain=" + params.domain;
+                    //}
+                } else {
+                    //先下线在上线
+                    if (data.message == "IpAlreadyOnlineError") {
+                        IpAlreadyRetryAuth(params);
+                    } else {
+                        if (data.message == "NoResponseDataError") {
+                            showLog(username);
+                            return;
+                        }
+                        //Show Error Message
+                        showErrorMessage(data.message);
+                    }
+                }
+            });
+        });
+
+
+        /*
+     * @Login
+     * @params [@username, @domain, @password, @ac_id, @ip, @type, @os, @name]
+     * @callback
+     */
+        $.Login = function (url, data, callback) {
+            var username = data.username + (data.domain || "");
+            var challengeCallback = function (response) {//这个challengeCallback就是发送第一个数据包的回调函数
+                /*
+                {"challenge":
+        // "1c6040ffc4a2fa99cf719fa877cbaf550fcb3e3a91b76326435048700529ce66",
+        // "client_ip":"10.100.0.2","ecode":0,"error":"ok","error_msg"
+        // :"","expire":"60","online_ip":"10.100.0.2","res":"ok",
+        // "srun_ver":"SRunCGIAuthIntfSvr V1.18 B20180903","st":1539759621}
+                */
+
+
+                if (response.error != "ok") {
+                    /*
+                    data  {  猜测也是这个东西
+                        error: "fail",
+                        message: message    这个方法的意思是如果我们通过发送的第一个数据包响应成功，
+                        //就会返回一个消息对象，erroe=ok，就会跳转到登录成功的界面
+                    }
+                     */
+                    //Process Error Message
+                    var message = error(response.ecode, response.error);
+                    return callback({
+                        error: "fail",
+                        message: message
+                    });
+                }
+                var token = response.challenge,   //这个challenge是通过getChallenge得到的
+                    //dd06184fd148258ec21a29ceee2c635485f1a918362c7be715cfc7bcfb3a6735
+                    i = info({
+                        username: username,
+                        password: data.password,
+                        ip: (data.ip || response.client_ip),
+                        acid: data.ac_id,
+                        enc_ver: enc
+                    }, token),
+                    hmd5 = pwd(data.password, token);
+                var chkstr = token + username;  //dd06184fd148258ec21a29ceee2c635485f1a918362c7be715cfc7bcfb3a6735___201604040222
+                chkstr += token + hmd5;
+                chkstr += token + data.ac_id;
+                chkstr += token + (data.ip || response.client_ip);
+                chkstr += token + n;
+                chkstr += token + type;
+                chkstr += token + i;
+                var os = getOS();
+                var params = {
+                    action: "login",
+                    username: username,
+                    password: "{MD5}" + hmd5,
+                    ac_id: data.ac_id,   //1
+                    ip: data.ip || response.client_ip,  //10.100.0.2
+                    chksum: chksum(chkstr),  //sha1的加密
+                    info: i,
+                    n: n,    //程序响应状态
+                    type: type,    //1
+                    os: os.device,   //os对象
+                    name: os.platform,   //os对象属性
+                    double_stack: data.double_stack    //0
+                };
+                var authCallback = function (resp) {
+                    if (resp.error == "ok") {
+                        return callback({
+                            error: "ok",
+                            message: ""
+                        });
+                    }
+                    //Process Error Message
+                    var message = error(resp.ecode, resp.error, resp.error_msg);
+                    if (typeof resp.ploy_msg != "undefined") {
+                        message = resp.ploy_msg;
+                    }
+                    return callback({
+                        error: "fail",
+                        message: message
+                    });
+                };
+                srunPortal(url, params, authCallback);
+            };
+            //这里面response携带了大量的新
+            var params = {
+                username: username,
+                ip: (data.ip || "")
+            };
+            getChallenge(url, params, challengeCallback);
+        };
+        //data:
+        //http://192.168.27.190/cgi-bin/get_challenge?callback=
+        //jQuery112405534779523618888_1539756524984&username=201604040222@unicom&ip=10.100.0.2&_=1539756524988
+
+        // classback:
+        // jQuery112404397858677074509_1539759078284({"challenge":
+        // "1c6040ffc4a2fa99cf719fa877cbaf550fcb3e3a91b76326435048700529ce66",
+        // "client_ip":"10.100.0.2","ecode":0,"error":"ok","error_msg"
+        // :"","expire":"60","online_ip":"10.100.0.2","res":"ok",
+        // "srun_ver":"SRunCGIAuthIntfSvr V1.18 B20180903","st":1539759621})
+        function getChallenge(url, data, callback) {
+            return $.get(url + "/cgi-bin/get_challenge", data, callback, "jsonp");
+        }
+
+        /*
+     * SRUN Portal Auth CGI
+     * 猜测就是http://192.168.27.190
+     * http://192.168.27.190/cgi-bin/srun_portal
+     *
+     *
+     */
+        function srunPortal(url, data, callback) {
+            return $.get(url + "/cgi-bin/srun_portal", data, callback, "jsonp");
+        }
+
+        //加密算法
+        function pwd(d, k) {
+            return md5(d, k);
+        }
+
+
+
+
+        function info(d, k) {
+            return "{SRBX1}" + $.base64.encode(xEncode(json(d), k));
+        }
+
+
+        function chksum(d) {
+            return sha1(d);
+        }
+
+
+        /*
+     * Online Info
+     * params []
+     * @callback
+     */
+        $.Info = function (url, data, callback) {
+            var userInfoCallback = function (response) {
+                if (response.error == "ok") {
+                    return callback({
+                        error: "ok",
+                        user_name: response.user_name,
+                        used_flow: formatFlux(response.sum_bytes),
+                        used_time: formatTime(response.sum_seconds),
+                        balance: response.user_balance.toFixed(2),
+                        ip: response.online_ip,
+                        domain: response.domain,
+                        checkout_date: response.checkout_date
+                    });
+                }
+                //Process Error Message
+                var message = error(response.ecode, response.error, response.error_msg);
+                return callback({
+                    error: "fail",
+                    message: message
+                });
+            }
+            userInfo(url, data, userInfoCallback);
+        };
+
+
+        //这个就是我们接受到的第二个get得请求包，用来获得个人新信息的
+        /*
+         * User Info
+         */
+        function userInfo(url, data, callback) {
+            return $.get(url + "/cgi-bin/rad_user_info", data, callback, "jsonp");
+        }
+
+        /*
+     * OS
+     */
+        function getOS() {
+            var ua = window.navigator.userAgent;
+            var md = new MobileDetect(ua);
+            if (md.mobile()) { //phone
+                var device = md.os() == "iOS" ? md.phone() : md.os();
+                return {
+                    device: device,
+                    platform: "Smartphones/PDAs/Tablets"
+                }
+            } else {    //desktop
+                lowerua = ua.toLowerCase()
+                var device = "", platform = "";
+                if (lowerua.indexOf("win") > -1 && lowerua.indexOf("95") > -1) {
+                    device = "Windows 95";
+                    platform = "Windows";
+                } else if (lowerua.indexOf("win 9x") > -1 && lowerua.indexOf("4.90") > -1) {
+                    device = "Windows ME";
+                    platform = "Windows";
+                } else if (lowerua.indexOf("win") > -1 && lowerua.indexOf("98") > -1) {
+                    device = "Windows 98";
+                    platform = "Windows";
+                } else if (lowerua.indexOf("win") > -1 && lowerua.indexOf("nt 5.0") > -1) {
+                    device = "Windows 2000";
+                    platform = "Windows";
+                } else if (lowerua.indexOf("win") > -1 && lowerua.indexOf("nt 5.1") > -1) {
+                    device = "Windows XP";
+                    platform = "Windows";
+                } else if (lowerua.indexOf("win") > -1 && lowerua.indexOf("nt 6.0") > -1) {
+                    device = "Windows Vista";
+                    platform = "Windows";
+                } else if (lowerua.indexOf("win") > -1 && lowerua.indexOf("nt 6.1") > -1) {
+                    device = "Windows 7";
+                    platform = "Windows";
+                } else if (lowerua.indexOf("win") > -1 && lowerua.indexOf("nt 6.2") > -1) {
+                    device = "Windows 8";
+                    platform = "Windows";
+                } else if (lowerua.indexOf("win") > -1 && lowerua.indexOf("nt 6.3") > -1) {
+                    device = "Windows 8";
+                    platform = "Windows";
+                } else if (lowerua.indexOf("win") > -1 && lowerua.indexOf("nt 10.0") > -1) {
+                    device = "Windows 10";
+                    platform = "Windows";
+                } else if (lowerua.indexOf("win") > -1 && lowerua.indexOf("32") > -1) {
+                    device = "Windows 32";
+                    platform = "Windows";
+                } else if (lowerua.indexOf("win") > -1 && lowerua.indexOf("nt") > -1) {
+                    device = "Windows NT";
+                    platform = "Windows";
+                } else if (lowerua.indexOf("mac os") > -1) {
+                    device = "Mac OS";
+                    platform = "Macintosh";
+                } else if (lowerua.indexOf("linux") > -1) {
+                    device = "Linux";
+                    platform = "Linux";
+                } else if (lowerua.indexOf("unix") > -1) {
+                    device = "Unix";
+                    platform = "Linux";
+                } else if (lowerua.indexOf("sun") > -1 && lowerua.indexOf("os") > -1) {
+                    device = "SunOS";
+                    platform = "Linux";
+                } else if (lowerua.indexOf("ibm") > -1 && lowerua.indexOf("os") > -1) {
+                    device = "IBM OS/2";
+                    platform = "Linux";
+                } else if (lowerua.indexOf("mac") > -1 && lowerua.indexOf("pc") > -1) {
+                    device = "Macintosh";
+                    platform = "Macintosh";
+                } else if (lowerua.indexOf("powerpc") > -1) {
+                    device = "PowerPC";
+                    platform = "Linux";
+                } else if (lowerua.indexOf("aix") > -1) {
+                    device = "AIX";
+                    platform = "Linux";
+                } else if (lowerua.indexOf("hpux") > -1) {
+                    device = "HPUX";
+                    platform = "Linux";
+                } else if (lowerua.indexOf("netbsd") > -1) {
+                    device = "NetBSD";
+                    platform = "Linux";
+                } else if (lowerua.indexOf("bsd") > -1) {
+                    device = "BSD";
+                    platform = "Linux";
+                } else if (lowerua.indexOf("osf1") > -1) {
+                    device = "OSF1";
+                    platform = "Linux";
+                } else if (lowerua.indexOf("irix") > -1) {
+                    device = "IRIX";
+                    platform = "Linux";
+                } else if (lowerua.indexOf("freebsd") > -1) {
+                    device = "FreeBSD";
+                    platform = "Linux";
+                } else {
+                    device = "Windows NT";
+                    platform = "Windows";
+                }
+                return {
+                    device: device,
+                    platform: platform
+                }
+            }
+        }
+
+        /*
+         * is Mobile
+         */
+        $.isMobile = function () {
+            var md = new MobileDetect(window.navigator.userAgent);
+            return md.mobile()
+        }
+
+
+    </script>
+</head>
+<body>
+
+
+<input name="ac_id" id="ac_id" value="1" type="hidden">
+<input name="user_ip" id="user_ip" value="10.100.7.128" type="hidden">
+<input name="nas_ip" id="nas_ip" value="" type="hidden">
+<input name="user_mac" id="user_mac" value="" type="hidden">
+<input name="url" id="url" value="" type="hidden">
+<div class="form-group">
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="fa fa-user fa-2x"></i>
+        </div>
+        <input name="username" id="username" class="form-control" placeholder="请输入用户名" type="text">
+
+        <div class="input-group-addon">
+            <select name="domain" id="domain" class="domain-list">
+
+
+                <option value="@cmcc">中国移动</option>
+
+                <option value="@edu">教育网</option>
+
+                <option value="@jift">校园网</option>
+
+                <option value="@oa">办公网</option>
+
+                <option value="@telecom">中国电信</option>
+
+                <option value="@unicom">中国联通</option>
+
+            </select>
+        </div>
+
+    </div>
+</div>
+<div class="form-group">
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="fa fa-lock fa-2x"></i>
+        </div>
+        <input name="password" id="password" class="form-control" placeholder="请输入密码" type="password">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 col-xs-4">
+        <button class="btn btn-block btn-primary" id="login" type="button">登录</button>
+    </div>
+    <div class="col-md-4 col-xs-4">
+        <button class="btn btn-block btn-danger" id="logout-dm" type="button">注销</button>
+    </div>
+
+    <div class="col-md-4 col-xs-4">
+        <a href="http://192.168.27.191:8900" target="_Blank" class="btn btn-block btn-success line-height-a">自助服务</a>
+    </div>
+
+
+</div>
+
+<script>
+
+    function event() {
+        document.getElementById("username").value = "20160404021";
+        document.getElementById("domain").value = "@telecom";
+        document.getElementById("password").value = "233218"
+
+        //下面是自动触发点击事件
+        document.getElementById("login").click();
+    }
+
+    javascript: alert(document.forms[0].username.value = "201604040222";
+    javascript:alert(document.forms[0].password.value = "272577")
+    document.forms[0].domain.value = "@unicom"
+    document.getElementById("login").click()
+    )
+
+
+</script>
+
+二次请求：http://192.168.27.190/cgi-bin/srun_portal?callback=jQuery112404397858677074509_1539759078284&action=login&username=201604040222@unicom&password={MD5}3ab33b64656e31fb0721ea7481109895&ac_id=1&ip=10.100.0.2&chksum=e76992e2d42a25c339424e00096c437a0629d335&info={SRBX1}JHvs7mqH2EJLpqpKCkFRzU5s3wZJQWOJGQNbsncgprC6U1UV845/d5YBrVROCF2M4PLrjbrUIRYZZz6or/Nc2RrWDBk5x8w4pqQAIAl6OEN3ou16eGddeDC4UP+MRV9xfG+u77C4HbCBQ3Bo&n=200&type=1&os=Linux&name=Linux&double_stack=0&_=1539759078286
+
+
+http://192.168.27.190/cgi-bin/get_challenge?callback=jQuery112405534779523618888_1539756524984&username=201604040222@unicom&ip=10.100.0.2&_=1539756524988
+http://192.168.27.190/cgi-bin/get_challenge?callback=jQuery112405534779523618888_1539756524984&username=201604040219@unicom&ip=10.100.0.2&_=1539756524990
+http://192.168.27.190/cgi-bin/get_challenge?callback=jQuery112405534779523618888_1539756524984&username=201604040221@unicom&ip=10.100.0.2&_=1539756524992
+http://192.168.27.190/cgi-bin/get_challenge?callback=jQuery112405534779523618888_1539756524984&username=201604040462@unicom&ip=10.100.0.2&_=1539756524994
+http://192.168.27.190/cgi-bin/get_challenge?callback=jQuery112405534779523618888_1539756524984&username=201604040472@telecom&ip=10.100.0.2&_=1539756524996
+
+
+resonse
+jQuery112405534779523618888_1539756524984({"challenge":"36d1b91959d9109743bf02ad2c9a79816deed2482bde5a003c89c8b054f9ae32","client_ip":"10.100.0.2","ecode":0,"error":"ok","error_msg":"","expire":"60","online_ip":"10.100.0.2","res":"ok","srun_ver":"SRunCGIAuthIntfSvr
+V1.18 B20180903","st":1539758255})
+
+
+</body>
+</html>
+
+请求：
+http://192.168.27.190/cgi-bin/
+get_challenge?
+callback=jQuery112404397858677074509_1539759078284
+&username=201604040222@unicom
+&ip=10.100.0.2
+&_=1539759078285
+
+1.接受：
+jQuery112404397858677074509_1539759078284(
+{"challenge":"dd06184fd148258ec21a29ceee2c635485f1a918362c7be715cfc7bcfb3a6735",
+"client_ip":"10.100.0.2","ecode":0,"error":"ok",
+"error_msg":"","expire":"60","online_ip":"10.100.0.2",
+"res":"ok","srun_ver":"SRunCGIAuthIntfSvr V1.18 B20180903","st":1539759022})
+
+
+
+

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+
+        function demo() {
+            var array = new Array(10);
+            for (i = 0; i < 10; i++) {
+                array[i] = function (sum) {
+                    var value = sum;
+                    return function (value1) {
+                        var value2 = value1
+                        return function () {
+                            return function () {
+                                return function () {
+                                    return value2
+                                };
+                            }
+                        }
+                    }(value);
+                }(i);
+            }
+            return array;
+        }
+
+
+        function demo2(){
+
+            var array=new Array(10);
+
+            for(var i=0;i<array.length;i++){
+                array[i]=function(sum){
+                 alert(sum);
+                 return sum;
+                };
+                alert(array[i](i));
+
+            }
+
+        }
+
+
+        function Person(){
+            this.page="this";
+            this.name="sdgsd";
+        }
+
+
+        var count=0;
+
+
+        window.onload = function () {
+            // var arrays = demo()
+            // for (j = 0; j < 10; j++) {
+            //     alert(arrays[j]()()() + "VALUE");
+            // }
+
+           // demo2();
+           //  window.count=5;
+           //  alert(window.count);
+           //  alert(count)
+
+            //Person();
+            var p=new Person();
+            alert(p.page);
+            alert(p.name);
+            alert(window.page);
+            alert(window.name);
+
+
+      document.getElementsByTagName("div")[0].style.display="none";
+
+
+
+        }
+    </script>
+</head>
+<body>
+<div>asdtgweyweyhweyhwer</div>
+
+</body>
+</html>

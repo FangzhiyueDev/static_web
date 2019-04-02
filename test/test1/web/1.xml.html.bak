@@ -1,0 +1,27 @@
+<html>
+	<head></head>
+	<style>
+		span{
+			background-color:#aaa;
+		}
+		div{
+			width:50px;
+			height:600px
+			background-color:#895768;
+		}
+
+	</style>
+	<body>
+		<div>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+
+	</body>
+</html>

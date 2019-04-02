@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<script type="text/JavaScript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+.fabiao {
+	background-color: #666666;
+	width: 40px;
+}
+-->
+</style>
+</head>
+
+<body>
+<form id="form1" name="form1" method="post" action="">
+  <label>
+  <input name="textfield" type="text" value="请输入日志标题" size="60" />
+  </label>
+  <p>
+    <label>
+    <textarea name="textarea" cols="60" rows="8"></textarea>
+    </label>
+  </p>
+  <p>分类:
+    <label>
+    <select name="select">
+      <option>个人日志</option>
+    </select>
+    </label>
+  权限：
+  <select name="select2">
+    <option>公开</option>
+    <option>私有</option>
+  </select>
+  </p>
+  <p>
+    <input name="Submit" type="submit" class="fabiao" value="发表" />
+    <input type="submit" name="Submit2" value="取消" />
+    <input type="submit" name="Submit3" value="保存草稿" />
+  </p>
+</form>
+</body>
+</html>

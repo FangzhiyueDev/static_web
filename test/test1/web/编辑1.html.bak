@@ -1,0 +1,80 @@
+﻿<html>
+<head>
+	<title></title>
+	
+	<script>
+		
+/*		function demo1(){
+			var v1,max=this[0];
+			for(var i=0;i<this.length;i++){
+				if(max<this[i]){
+					max=this[i];
+				}
+			}
+			return max;
+		}
+
+
+	var arr=new Array(34,56,22,43,13,67);
+	Array.prototype.max=demo1;
+   Array.prototype.min=null;
+   arr.min=1;
+   alert(arr.min);
+	alert(arr.max());*/
+	
+	
+	//自定义对象
+	
+	function Person(name,age,sex){
+		this.name=name;
+		this.age=age;
+		this.sex=sex;
+	}
+	
+	var per=new Person("fang",20,"男");
+	
+	/*alert(per.name);
+	alert(per.age);
+	alert(per.sex);*/
+	
+	
+	Person.prototype.mark=function mark(text){
+		
+		return text;
+	}
+	
+   //alert(per.mark("zheshi"));
+   
+   
+   Person.prototype.score=null;
+   per.score=12;
+   //alert(per.score);
+   
+   //alert(per.toLocaleString());
+   //alert(typeof per);
+   //alert(per.constructor);
+	
+	
+    //var dat=new Date(23523646446412);
+   //alert(dat);	
+   
+   var dat=new Date(2017,11,12);
+  
+  dat.toLocaleString();
+   alert(dat.toLocaleString());
+   
+   
+	</script>
+	<style>
+		
+	</style>
+	<script>
+		//demo1();
+	</script>
+	
+</head>
+<body>
+	
+	
+</body>
+</html>

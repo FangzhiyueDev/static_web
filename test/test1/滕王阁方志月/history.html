@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--这个界面的作用是处理历史信息的界面 -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css_control.css" type="text/css">
+<style type="text/css"></style>
+<script type="text/javascript" src="test.js"></script>
+</head>
+<body>
+
+<div class="title">
+<div class="company" onmouseover="getTitle()" onmouseout="getTitle_alert()" id="company"><span style="line-height: 60px; font-size: 25px;">安徽方得旅游信息公司</span></div> 
+<div class="tel"><span  style="line-height: 60px; font-size:18px;font-familay:宋体;">tel:1234567890</span></div>
+</div>
+<!-- 处理基本界面    首页   景点简介 公交查询 附近酒店 关于我们 -->
+<div class="main_menu">
+
+<div class="menu" id="menu" onmouseover="index1()" onmouseout="index1_alter()"><a href="index.html">|&nbsp;&nbsp;&nbsp;主页&nbsp;&nbsp;&nbsp;|</a></div>
+<div class="menu" id="list_one" onmouseover="drop_list_one(this.id,1)" onmouseout="drop_list_one(this.id,0)">
+<span>|&nbsp;&nbsp;&nbsp;景点简介&nbsp;&nbsp;&nbsp;|</span>
+
+<!-- 历史信息 -->
+<!-- 重要事件 -->
+<div class="drop_list">
+<a href="history.html">历史信息</a><br/>
+<a href="history.html">重要事件</a>
+</div>
+</div>
+<div class="menu" id="list_two" onmouseover="drop_list_one(this.id,1)" onmouseout="drop_list_one(this.id,0)">
+<span>|&nbsp;&nbsp;&nbsp;公交查询&nbsp;&nbsp;&nbsp;|</span>
+<div class="drop_list">
+<a href="car_road_query.html">公交线路查看</a><br/>
+<a href="car_road_query.html">公交时间查看</a>
+</div>
+
+</div>
+<div class="menu" id="list_three" onmouseover="drop_list_one(this.id,1)" onmouseout="drop_list_one(this.id,0)">
+<span>|&nbsp;&nbsp;&nbsp;附近酒店&nbsp;&nbsp;&nbsp;|</span>
+<div class="drop_list">
+<a>休闲度假</a><br/>
+<a>商务办公</a>
+</div>
+
+</div>
+<div class="menu" id="list_four" onmouseover="drop_list_one(this.id,1)" onmouseout="drop_list_one(this.id,0)">
+<span>|&nbsp;&nbsp;&nbsp;关于我们&nbsp;&nbsp;&nbsp;|</span>
+<div class="drop_list">
+<a>加入我们</a><br/>
+<a>寻求帮助</a>
+</div>
+</div>
+</div>
+
+<!--在下面处理中间的部分，是一个大的div -->
+<div class="history_center">
+<!-- 左面的div，用于显示标题的信息 -->
+
+<div class="history_center_left" style="font-size:16px; font-family:'宋体';">
+<div><a href="#" id="history_center_left_id1" onclick="history_div_change(this.id)">历史发展</a></div>
+<div><a href="#" id="history_center_left_id2" onclick="history_div_change(this.id)">名称来历</a></div>
+<div><a href="#" id="history_center_left_id3" onclick="history_div_change(this.id)">景观介绍</a></div>
+<div><a href="#" id="history_center_left_id4" onclick="history_div_change(this.id)">相关作品</a></div>
+<div><a href="#" id="history_center_left_id5" onclick="history_div_change(this.id)">荣誉评价</a></div>
+</div>
+
+<!-- 下面是一个div，用来处理主体信息 -->
+<div class="history_center_right"style="font-family:'新宋体';line-height:40px;" id="history_center_right">
+<div class="history_center_right_one" style="display: block;">
+<!-- 第一个div的内容 -->
+滕王阁始建于唐永徽四年（公元653年），为唐高祖李渊之子滕王李元婴任洪州都督时所创建。
+上元二年（675年）洪州都督阎公重修此阁，王勃写成《秋日登洪府滕王阁饯别序》。
+宋朝大观二年（1108年），江西洪州知府范坦重建滕王阁，丞相范致虚为之作《重建滕王阁记》曰：阁“崇三十有八尺，广旧基四十尺，增高十之一。南北因城以为庑，夹以二亭：南溯大江之雄曰‘压江’，北擅西山之秀曰‘挹翠’。”
+元代滕王阁几经战乱而破败不堪，至元三十一年（1294年），第一次重修滕王阁，阁高五丈六尺。
+嘉靖五年（1526年），都御史陈洪谟重建，次年二月落成，吏部尚书罗钦顺撰《重建滕王阁记》曰：“阁凡七间，高四十有二尺，视旧有加。”
+康熙十八年（1679年），滕王阁毁于大火，由安世鼎重建之。康熙二十四年(1685年)，阁又遭火焚，由中丞宋荦重建。康熙四十一年（1702年），阁又大火，江西巡抚张志栋又重建滕王阁。[4] 
+咸丰三年（1853年）四月，太平天国翼王石达开奉命出征安庆，赖汉英、胡以晃率军进攻南昌，围城三月，清军方面由安徽巡抚江忠源稳守南昌，把总李光宽被太平军乱枪击毙，滕王阁被烧成一片灰烬。
+光绪末年（1908年），滕王阁又遭火焚。宣统元年（1909年）重建，此时清廷内外交困，民穷财尽，修阁规模大不如前。
+1942年，古建大师梁思成先生偕同其弟子莫宗江根据“天籁阁”旧藏宋画绘制了八幅《重建滕王阁计划草图》。
+1989年10月8日，第二十九次重建的滕王阁胜利落成。
+</div>
+<div class="history_center_right_one">
+<!-- 第二个div的内容 -->
+唐太宗李世民之弟——滕王李元婴出生于帝王之家，受到宫廷生活熏陶，“工书画，妙音律，喜蝴蝶，选芳渚游，乘青雀舸，极亭榭歌舞之盛。”（明陈文烛《重修滕王阁记》）
+据史书记载，因李元婴在贞观年间曾被封于山东省滕州，故为滕王，且于滕州筑一阁楼名以“滕王阁”。
+永徽三年（公元652年），滕王李元婴调任江南洪州都督，次年又在洪州筑豪阁，仍冠名“滕王阁”，此阁便是后来人所熟知的滕王阁。[2] 
+历史上滕王阁有三处分别位于山东滕州、江西南昌和四川阆中（时间先后顺序）。
+</div>
+<div class="history_center_right_one">
+<!-- 第三个div的内容 -->
+总体外观
+滕王阁
+滕王阁(3张)
+滕王阁主体建筑净高57.5米，建筑面积13000平方米。其下部为象征古城墙的12米高台座，分为两级。台座
+以上的主阁取“明三暗七”格式，即从外面看是三层带回廊建筑，而内部却有七层，就是三个明层，三个暗层，加屋顶中的设备层。新阁的瓦件全部采用宜兴产碧色琉璃瓦。正脊鸱吻为仿宋特制，高达3.5米。勾头、滴水均特制瓦当，勾头为“滕阁秋风”四字，而滴水为“孤鹜”图案。台座之下，有南北相通的两个瓢形人工湖，北湖之上建有九曲风雨桥。
+循南北两道石级登临一级高台。一级高台的南北两翼，有碧瓦长廊一级高台朝东的墙面上，镶嵌石碑五块。
+滕王阁
+滕王阁(2张)
+正中为长卷式石碑一幅，此碑由八块汉白玉横拼而成，约10米长、1米高，外围以玛瑙红大理石镶边。此碑碑文为今人隶书韩愈《新修滕王阁记》。[5] 
+由一级高台拾级而上，即达二级高台(象征城墙的台座)。这两级高台共有89级台阶，而新阁恰于1989年落成开放。由高台登阁有三处入口，正东登石级经抱厦入阁，南北两面则由高低廊入阁。正东抱厦前，有青铜铸造的“八怪”宝鼎，鼎座用汉白玉打制，鼎高2.5米左右，下部为三足古鼎，上部是一座攒尖宝顶圆亭式鼎盖。
+</div>
+<div class="history_center_right_one">
+<!-- 第四个div的内容 -->
+历朝历代文人雅士们以滕王阁为歌咏主题的诗作数不胜数，其中不乏张九龄、白居易、杜牧、苏轼、王安石、朱熹、黄庭坚、辛弃疾、李清照、文天祥、汤显祖这样文化大家们留下的美文。对于常见的文学作品举例如下表：[7] 
+时间	作者	文学作品
+唐代	王勃	《滕王阁序》
+张九龄	
+《登城楼望西山作》
+白居易	《钟陵饯送》
+明代	汤显祖	《滕王阁看演〈牡丹亭〉二绝》
+清朝	彭孙遹	
+《秋日登滕王阁》
+</div>
+<div class="history_center_right_one">
+<!-- 第五个div的内容 -->
+滕王阁风景名胜区荣获由中央文明委授予的第三批“全国文明单位”称号[9]  。
+2001年被评为首批国家AAAA级旅游景区。[3] 
+2004年被评为国家重点风景名胜区。[10] 
+2016年被国务院评为国家5A级历史风景名胜区备（侯）选名单，成为了南昌第一个进入5A级备选名单的景点。
+滕王阁在古代被人们看作是吉祥风水建筑，古谣云：“藤断葫芦剪，塔圮豫章残”。“藤”谐“滕”音，指滕王阁；“葫芦”，乃藏宝之物；“塔”，指绳金塔；“圮”，倒塌之意；“豫章”亦即南昌。这首古谣的意思是，如果滕王阁和绳金塔倒塌，豫章城中的人才与宝藏都将流失，城市亦将败落，不复繁荣昌盛。
+在我国古代习俗中，人口聚居之地需要风水建筑，一般为当地最高标志性建筑，聚集天地之灵气，吸收日月之精华，俗称：“文笔峰”。滕王阁坐落于赣水之滨，被古人誉为“水笔”，古人云：“求财去万寿宫，求福去滕王阁”。可见滕王阁在世人心目中占据的神圣地位，历朝历代无不备受重视和保护。[11] 
+同时，滕王阁也是古代储藏经史典籍的地方，从某种意义上来说是古代的图书馆。而封建士大夫们迎送和宴请宾客也多喜欢在此，贵为天子的明代开国皇帝朱元璋在鄱阳湖之战大胜陈友谅后，曾设宴阁上，命诸大臣、文人赋诗填词，观看灯火。
+</div>
+</div>
+</div>
+<div class="bottom" style="font-size: 13px; font-family:宋体">
+<p>Copyright © 1998 - 201720172017 FangD. All Rights Reserved.</p>
+<p>方得公司 版权所有 方得旅游文化经营许可证</p>
+</div>
+</body>
+</html>

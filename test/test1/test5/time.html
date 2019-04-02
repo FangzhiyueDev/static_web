@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    var timeAndDate = "201811141808"
+
+    function formatDateAndTime(timeAndDate){
+        var year = timeAndDate.substring(0, 4);
+        var month = timeAndDate.substring(4, 6)
+        var day = timeAndDate.substring(6, 8)
+        var hours = timeAndDate.substring(8, 10)
+        var seconds = timeAndDate.substring(10, 12);
+        var time = year + "-" + month + "-" + day + " " + hours + ":" + seconds;
+        return time;
+    }
+
+</script>
+</body>
+</html>

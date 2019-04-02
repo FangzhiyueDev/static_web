@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>无标题文档</title>
+<script>
+/*var un=new Number(200000.45);
+document.write(un.toExponential(6));*/
+
+/*var newBoolean=new Boolean();
+//区分一下这两种方法的区别
+Boolean.prototype.mard=function (){
+
+return 1;
+}
+alert(newBoolean.mard());
+
+
+var demo=new Boolean();
+Boolean.prototpye.mark=null;
+demo.mark=1;
+alert(demo.mard);*/
+
+  /*  alert(document.forms);
+	
+	var form1=document.forms;
+	
+	for(var attr in form1){
+	
+	 document.write(attr+":"+form1[attr]+"<br/>");																							
+	}
+*/
+/*  window.onload=function get(){
+  
+  var num=new Number("swhshwh");
+//  var da=new Date("2017 03:02:14");
+  //var d =new Date(year, month, day, hours, minutes, seconds, milliseconds);
+   var da=new Date(2017,12,14,21,46,43,567);
+  
+  alert("ssgshwy");
+    alert(num); 
+	alert(da); 
+  }
+*/
+
+
+/*function get(num){
+if(num==1){
+return num;
+}else{
+  return num+get(num-1);
+}
+}*/
+
+//为数组增加一个属性或方法
+
+
+function test(){
+//1增加属性
+var arr=new Array(1,2,3,5,2,56,23);
+Array.prototype.max=100;
+//arr.max=100;
+alert(arr.max);
+}
+
+window.onload=function demo1(){
+
+function getMax(){
+var i,max=this[0];
+for(int i=0;i<this.length;i++){
+if(max<this[i]){
+max=this[i];
+}
+}
+return max;
+}
+var arr=new Array(1,65,34,78,23,12);
+arr.prototpye.max=getMax;
+alert(arr.max());
+}
+</script>
+<style>
+
+
+</style>
+</head>
+
+<body>
+<!--<form action="mailto:1933315107@qq.com">
+<input type="text" name="subject"/><br/><br/>
+<textarea rows="8" cols="40" name="body"></textarea><br/><br/>
+<input type="submit" value="发送"/> 
+</form>-->
+<script>
+/*
+test();
+demo1();
+*/
+</script>
+</body>
+</html>

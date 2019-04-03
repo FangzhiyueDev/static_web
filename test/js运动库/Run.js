@@ -27,4 +27,10 @@ function startMove(obj, attr, iTarget)
             obj.style[attr]=iCur+iSpeed+'px';
         }
     }, 30)
+
+
+
+
+
+
 }

@@ -1,2 +1,0 @@
-
-alert("szgusafdasfasgv00asf");

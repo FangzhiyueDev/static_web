@@ -507,7 +507,7 @@ Cache: isotope, jquery-timepicker, iphorm-jquery-ui-datepicker, iphorm-jquery-ui
 												 	off = off - jQuery(this).data('scrolloffset');
 												 } catch(e) {}
 
-												jQuery('body,html').animate(
+												jQuery('body,htmlStudy').animate(
 													{scrollTop:(container.offset().top+(container.find('>ul >li').height())-off)+"px"},{duration:400});
 											});
 									//}
@@ -521,7 +521,7 @@ Cache: isotope, jquery-timepicker, iphorm-jquery-ui-datepicker, iphorm-jquery-ui
 		revscroll: function(oy) {
 					return this.each(function() {
 						var container=jQuery(this);
-						jQuery('body,html').animate(
+						jQuery('body,htmlStudy').animate(
 							{scrollTop:(container.offset().top+(container.find('>ul >li').height())-oy)+"px"},{duration:400});
 					})
 				},
@@ -6973,7 +6973,7 @@ jQuery( document ).ready( function($) {
 					var result = $.parseJSON(data);
 					if(result){
 						if(result.text){
-							//p.find(".ocr_upload_info").html("<div style='font-size:12px;color:#999;padding-top:10px;'>图片所有文字：:"+result.text+"</div>");
+							//p.find(".ocr_upload_info").htmlStudy("<div style='font-size:12px;color:#999;padding-top:10px;'>图片所有文字：:"+result.text+"</div>");
 							p.find("[name='ship_address']").val(result.text);
 						}
 						/*if(result.address){
@@ -7524,7 +7524,7 @@ jQuery( document ).ready( function($) {
 		},
 
 		/*
-		* generate and inject html for timepicker into ui datepicker
+		* generate and inject htmlStudy for timepicker into ui datepicker
 		*/
 		_injectTimePicker: function() {
 			var $dp = this.inst.dpDiv,

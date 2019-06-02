@@ -3,7 +3,7 @@ window.onload = function () {
     /**
      * 实现下拉菜单
      */
-    var test = document.getElementById("test");
+    var test = document.getElementById("ui效果实现");
     var list = document.getElementById("list");
 
     var span = document.getElementsByTagName("span")[0];
